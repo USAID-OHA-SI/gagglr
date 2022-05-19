@@ -20,5 +20,5 @@ Imports:
     stringr,
     tibble,
     usethis
-URL: https://github.com/USAID-OHA-SI/gagglr
+URL: https://github.com/USAID-OHA-SI/gagglr,https://usaid-oha-si.github.io/gagglr/
 BugReports: https://github.com/USAID-OHA-SI/gagglr/issues
