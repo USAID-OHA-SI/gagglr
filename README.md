@@ -5,6 +5,7 @@ Corralling our gaggle of OHA R utility packages
 <!-- badges: start -->
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/USAID-OHA-SI/gagglr/workflows/R-CMD-check/badge.svg)](https://github.com/USAID-OHA-SI/gagglr/actions)
 <!-- badges: end -->
 
 The goal of gagglr is to provide a check to users to ensure they are using the latest versions of the [core OHA utility packages](https://usaid-oha-si.github.io/tools/) since they are not updated on regular intervals.
