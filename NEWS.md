@@ -1,4 +1,5 @@
 # gagglr 0.0.0.9000
+* Add GitHub Action for CI.
 * Add logo and lifecycle badge.
 * Add `magrittr` to imports.
 * Add `README.md` file to provide an overview of the package and act as landing page.

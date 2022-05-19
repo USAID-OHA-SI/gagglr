@@ -4,14 +4,27 @@
 \name{gagglr-package}
 \alias{gagglr}
 \alias{gagglr-package}
-\title{gagglr: What the Package Does (One Line, Title Case)}
+\title{gagglr: Corralling Our Gaggle of OHA R Utility Packages}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-What the package does (one paragraph).
+Since package are developed with a regular update cycle, users can often be using outdated packages that resolve bug or add new features. This checks to ensure you are using the lastest version of the OHA core package and allows you to load them all at the start of a session.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/USAID-OHA-SI/gagglr}
+  \item Report bugs at \url{https://github.com/USAID-OHA-SI/gagglr/issues}
+}
+
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Aaron Chafetz \email{achafetz@usaid.gov}
+
+Authors:
+\itemize{
+  \item Baboyma Kagniniwa \email{bkagniniwa@usaid.gov}
+}
 
 }
 \keyword{internal}

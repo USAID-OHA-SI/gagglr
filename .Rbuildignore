@@ -1,3 +1,7 @@
-^gagglr\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^\.travis\.yml$
+^doc$
+^\.github$
+^data-raw$
