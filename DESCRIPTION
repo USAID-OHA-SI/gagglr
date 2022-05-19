@@ -1,10 +1,13 @@
 Package: gagglr
-Title: What the Package Does (One Line, Title Case)
+Title: Corralling Our Gaggle of OHA R Utility Packages
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R: c(
+    person("Aaron", "Chafetz", ,"achafetz@usaid.gov", c("aut", "cre")),
+    person("Baboyma", "Kagniniwa", , "bkagniniwa@usaid.gov", c("aut")))
+Description: Since package are developed with a regular update cycle, users 
+can often be using outdated packages that resolve bug or add new features. This
+package checks to ensure you are using the lastest version of the 
+OHA core package and allows you to load them all at the start of a session.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
