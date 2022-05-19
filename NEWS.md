@@ -1,4 +1,5 @@
 # gagglr 0.0.0.9000
+* Build site.
 * Add GitHub Action for CI.
 * Add logo and lifecycle badge.
 * Add `magrittr` to imports.
