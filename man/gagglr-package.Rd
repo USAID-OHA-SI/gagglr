@@ -13,7 +13,7 @@ Since package are developed with a regular update cycle, users can often be usin
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/USAID-OHA-SI/gagglr}
+  \item \url{https://github.com/USAID-OHA-SI/gagglr,https://usaid-oha-si.github.io/gagglr/}
   \item Report bugs at \url{https://github.com/USAID-OHA-SI/gagglr/issues}
 }
 

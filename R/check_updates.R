@@ -4,7 +4,7 @@
 #' stored on GitHub to flag whether or not you have the latest version.
 #'
 #' @param name package name
-#' @param url user/organization url, default = "https://github.com/USAID-OHA-SI/"
+#' @param url user/organization url, default = "https://github.com/USAID-OHA-SI"
 #'
 #' @return message if there is a newer package on GH than local
 #' @export
@@ -13,80 +13,94 @@
 #' check_updates("gophr")
 #' check_updates("glamr")
 
-check_updates <- function(name, url = "https://github.com/USAID-OHA-SI/") {
+check_updates <- function(name, url = "https://github.com/USAID-OHA-SI") {
+
+  #identify organization
+  org <- stringr::str_remove(url, "https://github.com/")
 
   # Extract remote SHA Code
-  remote_sha <- url %>%
-    paste(name, sep = "/") %>%
-    git2r::remote_ls() %>%
-    tibble::as_tibble() %>%
-    dplyr::pull(value) %>%
-    dplyr::first()
-
-  # Notification
-  msg_yes <- base::paste0("Package [USAID-OHA-SI/",
-                          name,
-                          "] has new updates - ",
-                          remote_sha)
-
-  msg_noo <- base::paste0("Package [USAID-OHA-SI/",
-                          name,
-                          "] has no new updates - ",
-                          remote_sha)
+  remote_sha <- extract_remote_sha(name, url)
 
   # Local SHA Code
   local_sha <- NULL
 
-  pkgs <- devtools::package_info(pkgs = "installed") %>%
-    tibble::as_tibble()
-
-  local <- dplyr::filter(pkgs, package == name)
+  #package source
+  src <- sessioninfo::package_info(name) %>%
+    dplyr::filter(package == name) %>%
+    dplyr::pull(source)
 
   # package not installed or built locally
-  if(is.null(local)) {
-    base::message(paste0("Unable to identify package [", name, "]"))
+  if(is.na(src)) {
+    usethis::ui_warn("Unable to identify package [{name}]")
     return(NULL)
   }
 
-  # Get source
-  src <- local %>%
-    dplyr::pull(source) %>%
-    dplyr::first()
-
   # Package built locally
   if (src == "local") {
-    base::message(paste0("Unable to identify sha code for package built locally [", name, "]"))
+    usethis::ui_warn("Unable to identify sha code for package built locally [{name}]")
     return(TRUE)
   }
 
   # CRAN Packages
-  if (str_detect(src, "CRAN")) {
-    base::message(paste0("Unable to identify sha code for CRAN package [", name, "]"))
+  if (stringr::str_detect(src, "CRAN")) {
+    usethis::ui_warn("Unable to identify sha code for CRAN package [{name}]")
     return(NULL)
   }
 
   # Extract local SHA Code
-  if (str_detect(src, "Github")) {
+  if (stringr::str_detect(src, "Github")) {
     #package installed
     local_sha <- stringr::str_extract(src, "(?<=\\@).*(?=\\))")
   }
 
   # Check for valid github sha
   if(!is.null(local_sha) & (is.na(local_sha) | local_sha == "")) {
-    base::message(paste0("Unable to identify sha code for Github package [", name, "]"))
+    usethis::ui_warn("Unable to identify sha code for Github package [{name}]")
     return(NULL)
   }
 
   # Compare local to remote SHA
   new_updates = remote_sha != local_sha
+  msg <- glue::glue("Package [{org}/{name}] has{ifelse(new_updates == TRUE, '', ' no')} new updates")
+
 
   if (!is.null(local_sha) & new_updates) {
-    usethis::ui_warn(msg_yes)
+    usethis::ui_warn(msg)
   }
 
   if (!is.null(local_sha) & remote_sha == local_sha) {
-    usethis::ui_info(msg_noo)
+    usethis::ui_info(msg)
   }
 
   return(new_updates)
+}
+
+
+#' Extract Remote SHA
+#'
+#' Pulls the latest SHA (commit ID) from GitHub
+#'
+#' @param name package name
+#' @param url user/organization url, default = "https://github.com/USAID-OHA-SI/"
+#'
+#' @return 40 character SHA hash vector
+#'
+extract_remote_sha <- function(name, url = "https://github.com/USAID-OHA-SI"){
+
+  repo_url <- paste(url, name, sep = "/")
+
+  remote_sha <- tryCatch(
+     repo_url %>%
+      git2r::remote_ls() %>%
+      tibble::as_tibble() %>%
+      dplyr::pull(value) %>%
+      dplyr::first(),
+    error = function(c) NULL)
+
+  if(is.null(remote_sha)) {
+    return(NULL)
+  } else {
+    return(remote_sha)
+  }
+
 }
