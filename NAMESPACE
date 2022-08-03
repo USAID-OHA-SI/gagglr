@@ -2,4 +2,7 @@
 
 export("%>%")
 export(check_updates)
+export(oha_packages)
+export(oha_sitrep)
+export(oha_update)
 importFrom(magrittr,"%>%")

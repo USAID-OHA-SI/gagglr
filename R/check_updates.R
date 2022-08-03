@@ -5,6 +5,7 @@
 #'
 #' @param name package name
 #' @param url user/organization url, default = "https://github.com/USAID-OHA-SI"
+#' @param suppress_success suppress message if up to date, default = FALSE
 #'
 #' @return message if there is a newer package on GH than local
 #' @export
@@ -13,7 +14,7 @@
 #' check_updates("gophr")
 #' check_updates("glamr")
 
-check_updates <- function(name, url = "https://github.com/USAID-OHA-SI") {
+check_updates <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_success = FALSE) {
 
   #identify organization
   org <- stringr::str_remove(url, "https://github.com/")
@@ -25,26 +26,24 @@ check_updates <- function(name, url = "https://github.com/USAID-OHA-SI") {
   local_sha <- NULL
 
   #package source
-  src <- sessioninfo::package_info(name) %>%
-    dplyr::filter(package == name) %>%
-    dplyr::pull(source)
+  src <- sessioninfo::package_info(name, dependencies = FALSE)$source
 
   # package not installed or built locally
   if(is.na(src)) {
-    usethis::ui_warn("Unable to identify package [{name}]")
-    return(NULL)
+    usethis::ui_warn("Unable to identify/locate package [{name}]")
+    return(invisible("^"))
   }
 
   # Package built locally
   if (src == "local") {
     usethis::ui_warn("Unable to identify sha code for package built locally [{name}]")
-    return(TRUE)
+    return(invisible("?"))
   }
 
   # CRAN Packages
   if (stringr::str_detect(src, "CRAN")) {
     usethis::ui_warn("Unable to identify sha code for CRAN package [{name}]")
-    return(NULL)
+    return(invisible("?"))
   }
 
   # Extract local SHA Code
@@ -56,7 +55,7 @@ check_updates <- function(name, url = "https://github.com/USAID-OHA-SI") {
   # Check for valid github sha
   if(!is.null(local_sha) & (is.na(local_sha) | local_sha == "")) {
     usethis::ui_warn("Unable to identify sha code for Github package [{name}]")
-    return(NULL)
+    return(invisible("?"))
   }
 
   # Compare local to remote SHA
@@ -66,13 +65,18 @@ check_updates <- function(name, url = "https://github.com/USAID-OHA-SI") {
 
   if (!is.null(local_sha) & new_updates) {
     usethis::ui_warn(msg)
+    return(invisible("*"))
   }
 
-  if (!is.null(local_sha) & remote_sha == local_sha) {
+  if (!is.null(local_sha) & remote_sha == local_sha & !suppress_success) {
     usethis::ui_info(msg)
   }
 
-  return(new_updates)
+  if (!is.null(local_sha) & remote_sha == local_sha) {
+    return(invisible(""))
+  }
+
+  # return(new_updates)
 }
 
 

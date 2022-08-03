@@ -1,22 +1,10 @@
-#Lightly adapted from tidyverse
-#https://github.com/tidyverse/tidyverse/blob/main/R/attach.R
-
-#' Core OHA tools
-core <- c("gisr",
-          "glamr",
-          "glitr",
-          "gophr")
-
-#' Additional OHA tools
-addtl <- c("COVIDutilities",
-           "mindthegap",
-           "selfdestructin5",
-           "tameDP",
-           "Wavelength")
+#' Minimially adapted from tidyverse
+#' https://github.com/tidyverse/tidyverse/blob/main/R/attach.R
 
 
-
-attach_oha <- function(){
+#' Load packages at start up
+#'
+oha_attach <- function(){
   to_load <- core_unloaded()
   if (length(to_load) == 0)
     return(invisible())
@@ -25,14 +13,18 @@ attach_oha <- function(){
     cli::rule(
       left = crayon::bold("Attaching packages"),
       right = paste0("OHA tools ", utils::packageVersion("gagglr"))
-    )
-  )
+    ))
 
   versions <- vapply(to_load, package_version, character(1))
 
+  update_needed <- suppressMessages(suppressWarnings(
+    vapply(core, check_updates, character(1))
+  ))
+
   packages <- paste0(
     crayon::green(cli::symbol$tick), " ", crayon::blue(format(to_load)), " ",
-    crayon::col_align(versions, max(crayon::col_nchar(versions)))
+    crayon::col_align(versions, max(crayon::col_nchar(versions))), " ",
+    crayon::col_align(update_needed, max(crayon::col_nchar(update_needed)))
   )
 
   message(paste(packages, collapse = "\n"))
@@ -40,6 +32,8 @@ attach_oha <- function(){
   suppressPackageStartupMessages(
     lapply(to_load, load_pkg)
   )
+
+  invisible()
 }
 
 core_unloaded <- function() {

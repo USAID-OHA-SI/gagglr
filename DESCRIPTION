@@ -6,20 +6,34 @@ Authors@R: c(
     person("Baboyma", "Kagniniwa", , "bkagniniwa@usaid.gov", c("aut")))
 Description: Since package are developed with a regular update cycle, users 
   can often be using outdated packages that resolve bug or add new features. This
-  checks to ensure you are using the lastest version of the 
-  OHA core package and allows you to load them all at the start of a session.
+  checks to ensure you are using the lastest version of the OHA core package and 
+  allows you to load them all at the start of a session. This package borrows 
+  heavily from the tidyverse package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: 
+    cli,
     crayon,
     dplyr,
     git2r,
     magrittr,
+    rstudioapi,
     sessioninfo,
     stringr,
     tibble,
-    usethis
+    usethis,
+    utils
+Remotes:
+  USAID-OHA-SI/glamr,
+  USAID-OHA-SI/glitr,
+  USAID-OHA-SI/gisr,
+  USAID-OHA-SI/gophr,
+  USAID-OHA-SI/mindthegap,
+  USAID-OHA-SI/tameDP,
+  USAID-OHA-SI/COVIDutilities,
+  USAID-OHA-SI/selfdestructin5,
+  USAID-OHA-SI/Wavelength
 URL: https://github.com/USAID-OHA-SI/gagglr,https://usaid-oha-si.github.io/gagglr/
 BugReports: https://github.com/USAID-OHA-SI/gagglr/issues

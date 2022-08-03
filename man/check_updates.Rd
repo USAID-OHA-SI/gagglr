@@ -4,12 +4,18 @@
 \alias{check_updates}
 \title{Check for OHA package updates}
 \usage{
-check_updates(name, url = "https://github.com/USAID-OHA-SI")
+check_updates(
+  name,
+  url = "https://github.com/USAID-OHA-SI",
+  suppress_success = FALSE
+)
 }
 \arguments{
 \item{name}{package name}
 
 \item{url}{user/organization url, default = "https://github.com/USAID-OHA-SI"}
+
+\item{suppress_success}{suppress message if up to date, default = FALSE}
 }
 \value{
 message if there is a newer package on GH than local
