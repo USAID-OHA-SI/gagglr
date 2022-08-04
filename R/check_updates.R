@@ -16,6 +16,10 @@
 
 oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_success = FALSE) {
 
+  #if nothing specified, run against all packages
+  if(missing(name))
+    return(oha_sitrep())
+
   #identify organization
   org <- stringr::str_remove(url, "https://github.com/")
 

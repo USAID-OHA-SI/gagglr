@@ -1,4 +1,5 @@
 # gagglr 0.0.0.9000
+* Update `oha_check` to run `oha_sitrep` if no package is specified.
 * Setup onAttach to load core OHA packages when `gagglr` is loaded.
 * Add `oha_update` to provide user with code to update package from GitHub
 * Add `oha_sitrep` to provide a list of all OHA packages and indicates whether
