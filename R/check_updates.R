@@ -11,10 +11,10 @@
 #' @export
 #'
 #' @examplesIf FALSE
-#' check_updates("gophr")
-#' check_updates("glamr")
+#' oha_check("gophr")
+#' oha_check("glamr")
 
-check_updates <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_success = FALSE) {
+oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_success = FALSE) {
 
   #identify organization
   org <- stringr::str_remove(url, "https://github.com/")

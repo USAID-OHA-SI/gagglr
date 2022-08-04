@@ -77,7 +77,7 @@ oha_tbl <- function() {
   pkgs <- oha_packages()
 
   update_needed <- suppressMessages(suppressWarnings(
-    vapply(pkgs, check_updates, character(1))
+    vapply(pkgs, oha_check, character(1))
   ))
 
   versions <- sessioninfo::package_info(pkgs, dependencies = FALSE) %>%

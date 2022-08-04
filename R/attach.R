@@ -18,7 +18,7 @@ oha_attach <- function(){
   versions <- vapply(to_load, package_version, character(1))
 
   update_needed <- suppressMessages(suppressWarnings(
-    vapply(to_load, check_updates, character(1))
+    vapply(to_load, oha_check, character(1))
   ))
 
   packages <- paste0(
