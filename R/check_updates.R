@@ -5,15 +5,16 @@
 #'
 #' @param name package name
 #' @param url user/organization url, default = "https://github.com/USAID-OHA-SI"
+#' @param suppress_success suppress message if up to date, default = FALSE
 #'
 #' @return message if there is a newer package on GH than local
 #' @export
 #'
 #' @examplesIf FALSE
-#' check_updates("gophr")
-#' check_updates("glamr")
+#' oha_check("gophr")
+#' oha_check("glamr")
 
-check_updates <- function(name, url = "https://github.com/USAID-OHA-SI") {
+oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_success = FALSE) {
 
   #identify organization
   org <- stringr::str_remove(url, "https://github.com/")
@@ -25,26 +26,24 @@ check_updates <- function(name, url = "https://github.com/USAID-OHA-SI") {
   local_sha <- NULL
 
   #package source
-  src <- sessioninfo::package_info(name) %>%
-    dplyr::filter(package == name) %>%
-    dplyr::pull(source)
+  src <- sessioninfo::package_info(name, dependencies = FALSE)$source
 
   # package not installed or built locally
   if(is.na(src)) {
-    usethis::ui_warn("Unable to identify package [{name}]")
-    return(NULL)
+    usethis::ui_warn("[{name}] status: UNINSTALLED - unable to identify/locate package")
+    return(invisible("^"))
   }
 
   # Package built locally
-  if (src == "local") {
-    usethis::ui_warn("Unable to identify sha code for package built locally [{name}]")
-    return(TRUE)
+  if (src %in% c("local", "load_all()")) {
+    usethis::ui_warn("[{name}] status: UNKNOWN - unable to identify status (via sha code) for package built locally")
+    return(invisible("?"))
   }
 
   # CRAN Packages
   if (stringr::str_detect(src, "CRAN")) {
-    usethis::ui_warn("Unable to identify sha code for CRAN package [{name}]")
-    return(NULL)
+    usethis::ui_warn("[{name}] status: UNKNOWN - unable to identify status (via sha code) for CRAN package")
+    return(invisible("?"))
   }
 
   # Extract local SHA Code
@@ -55,8 +54,8 @@ check_updates <- function(name, url = "https://github.com/USAID-OHA-SI") {
 
   # Check for valid github sha
   if(!is.null(local_sha) & (is.na(local_sha) | local_sha == "")) {
-    usethis::ui_warn("Unable to identify sha code for Github package [{name}]")
-    return(NULL)
+    usethis::ui_warn("[{name}] status: UNKNOWN - unable to identify status (via sha code) for this Github package")
+    return(invisible("?"))
   }
 
   # Compare local to remote SHA
@@ -65,14 +64,19 @@ check_updates <- function(name, url = "https://github.com/USAID-OHA-SI") {
 
 
   if (!is.null(local_sha) & new_updates) {
-    usethis::ui_warn(msg)
+    usethis::ui_warn("[{name}] status: OUT OF DATE - local version of package is behind the latest release on GitHub")
+    return(invisible("*"))
+  }
+
+  if (!is.null(local_sha) & remote_sha == local_sha & !suppress_success) {
+    usethis::ui_info("[{name}] status: UP TO DATE - local version of package matches the latest release on GitHub")
   }
 
   if (!is.null(local_sha) & remote_sha == local_sha) {
-    usethis::ui_info(msg)
+    return(invisible(""))
   }
 
-  return(new_updates)
+  # return(new_updates)
 }
 
 
