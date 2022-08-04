@@ -1,6 +1,7 @@
 .onAttach <- function(...) {
   needed <- core[!is_attached(core)]
-  if (length(needed) == 0)
+  available <- core[vapply(needed, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))]
+  if (length(available) == 0)
     return()
 
   crayon::num_colors(TRUE)

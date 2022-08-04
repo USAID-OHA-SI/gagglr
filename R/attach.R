@@ -26,8 +26,11 @@ oha_attach <- function(){
     crayon::col_align(versions, max(crayon::col_nchar(versions))), " ",
     crayon::col_align(update_needed, max(crayon::col_nchar(update_needed)))
   )
+  packages_missing <- paste0(
+    crayon::red(cli::symbol$cross), " ", crayon::silver(format(setdiff(core, to_load))))
 
-  message(paste(packages, collapse = "\n"))
+  packages_all <- c(packages, packages_missing)
+  message(paste(packages_all, collapse = "\n"))
 
   suppressPackageStartupMessages(
     lapply(to_load, load_pkg)
@@ -37,8 +40,9 @@ oha_attach <- function(){
 }
 
 core_unloaded <- function() {
-  core_pkgs <- paste0("package:", core)
-  core[!core_pkgs %in% search()]
+  core_instlld <- core[vapply(core, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))]
+  core_pkgs <- paste0("package:", core_instlld)
+  core_instlld[!core_pkgs %in% search()]
 }
 
 load_pkg <- function(pkg){
