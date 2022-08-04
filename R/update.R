@@ -55,6 +55,7 @@ oha_sitrep <- function() {
   df_pkg <- oha_tbl()
 
   package_pad <- format(df_pkg$package)
+  version_pad <- format(df_pkg$version)
 
   packages <- dplyr::case_when(
     df_pkg$status_code == "?" ~ paste0(cli::col_grey(package_pad), " (", version_pad, ")", cli::col_grey(" [", df_pkg$date, ", local build]")),
