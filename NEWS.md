@@ -1,5 +1,6 @@
 # gagglr 0.1.0
-* Ugrade version to stable [2022-08-15]
+* Remove extra line printed with X using `library(gagglr)` when all packages are available [2022-08-05]
+* Upgrade version to stable [2022-08-15]
 
 # gagglr 0.0.0.9000
 * Update `oha_check` to run `oha_sitrep` if no package is specified.
