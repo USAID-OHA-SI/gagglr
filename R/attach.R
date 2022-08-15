@@ -26,11 +26,16 @@ oha_attach <- function(){
     crayon::col_align(versions, max(crayon::col_nchar(versions))), " ",
     crayon::col_align(update_needed, max(crayon::col_nchar(update_needed)))
   )
-  packages_missing <- paste0(
-    crayon::red(cli::symbol$cross), " ", crayon::silver(format(setdiff(core, to_load))))
 
-  packages_all <- c(packages, packages_missing)
-  message(paste(packages_all, collapse = "\n"))
+  if(length(setdiff(core, to_load) > 0)){
+    packages_missing <- paste0(
+      crayon::red(cli::symbol$cross), " ", crayon::silver(format(setdiff(core, to_load))))
+
+    packages <- c(packages, packages_missing)
+  }
+
+
+  message(paste(packages, collapse = "\n"))
 
   suppressPackageStartupMessages(
     lapply(to_load, load_pkg)
