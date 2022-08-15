@@ -9,3 +9,4 @@ oha_tbl()
 \description{
 List all OHA functions and versions as a table
 }
+\keyword{internal}

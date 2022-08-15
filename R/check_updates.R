@@ -92,6 +92,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 #' @param url user/organization url, default = "https://github.com/USAID-OHA-SI/"
 #'
 #' @return 40 character SHA hash vector
+#' @keywords internal
 #'
 extract_remote_sha <- function(name, url = "https://github.com/USAID-OHA-SI"){
 

@@ -71,7 +71,7 @@ oha_sitrep <- function() {
 
 
 #' List all OHA functions and versions as a table
-#'
+#' @keywords internal
 oha_tbl <- function() {
 
   pkgs <- oha_packages()
