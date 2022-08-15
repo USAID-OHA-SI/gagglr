@@ -3,8 +3,7 @@
 Corralling our gaggle of OHA R utility packages
 
 <!-- badges: start -->
-
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/USAID-OHA-SI/gagglr/workflows/R-CMD-check/badge.svg)](https://github.com/USAID-OHA-SI/gagglr/actions)
 <!-- badges: end -->
 
