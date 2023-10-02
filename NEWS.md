@@ -1,4 +1,5 @@
 # gagglr 0.1.0
+* Include `themask` as a new supported packaged [2023-10-02]
 * Remove extra line printed with X using `library(gagglr)` when all packages are available [2022-08-05]
 * Upgrade version to stable [2022-08-15]
 
