@@ -12,7 +12,7 @@ Description: Since package are developed with a regular update cycle, users
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Imports: 
     cli,
     crayon,

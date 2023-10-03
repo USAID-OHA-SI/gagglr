@@ -44,12 +44,15 @@ oha_attach <- function(){
   invisible()
 }
 
+
+#' @keywords internal
 core_unloaded <- function() {
   core_instlld <- core[vapply(core, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))]
   core_pkgs <- paste0("package:", core_instlld)
   core_instlld[!core_pkgs %in% search()]
 }
 
+#' @keywords internal
 load_pkg <- function(pkg){
   do.call(
     "library",
@@ -57,6 +60,7 @@ load_pkg <- function(pkg){
   )
 }
 
+#' @keywords internal
 package_version <- function(x) {
   version <- as.character(unclass(utils::packageVersion(x))[[1]])
 

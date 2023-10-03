@@ -1,4 +1,5 @@
 #' Core OHA tools
+#' @keywords internal
 core <- c("gisr",
           "glamr",
           "glitr",
