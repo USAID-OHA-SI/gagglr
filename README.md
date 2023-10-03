@@ -26,7 +26,7 @@ If you do not have `remotes` installed, you will have to run the `install.packag
     library(gagglr)
 
 ## LIST TYPES OF STYLES INCLUDED WITH PACKAGE
-  ls(package:gagglr)
+  ls("package:gagglr")
 ```
 
 
