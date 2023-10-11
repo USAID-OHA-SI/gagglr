@@ -1,9 +1,10 @@
 #' Core OHA tools
 #' @keywords internal
-core <- c("gisr",
+core <- c("gophr",
           "glamr",
           "glitr",
-          "gophr")
+          "gisr"
+          )
 
 #' List all OHA Packages
 #'
