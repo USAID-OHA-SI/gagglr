@@ -34,7 +34,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # package not installed or built locally
   if(is.na(src)) {
-    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_red('UNINSTALLED')} - unable to identify/locate package")
+    cli::cli_alert_danger("{.pkg {name}} status: {cli::col_br_red('UNINSTALLED')} - unable to identify/locate package")
     return(invisible("^"))
   }
 
@@ -70,6 +70,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   if (!is.null(local_sha) & new_updates) {
     cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('OUT OF DATE')} - local version of package is behind the latest release on GitHub")
+    print_update_text(name, org)
     return(invisible("*"))
   }
 
@@ -113,4 +114,22 @@ extract_remote_sha <- function(name, url = "https://github.com/USAID-OHA-SI"){
     return(remote_sha)
   }
 
+}
+
+
+#' Print info for outdated packages
+#'
+#' @inheritParams oha_check
+#' @param org GH organization
+#'
+#' @keywords internal
+print_update_text <- function(name, org){
+  cli::cli_inform(c('To update {.pkg {name}}, run the code below:',
+                    '{.code # install.packages("pak")}',
+                    '{.code pak::pak("{org}/{name}")}'))
+
+  if(name %in% oha_packages()){
+    new_url <- glue::glue("https://usaid-oha-si.github.io/{name}/news/index.html")
+    cli::cli_alert_info("See the changelog for more {.url {new_url}}")
+  }
 }
