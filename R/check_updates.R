@@ -34,19 +34,19 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # package not installed or built locally
   if(is.na(src)) {
-    cli::cli_alert_warning("{.code {name}} status: UNINSTALLED - unable to identify/locate package")
+    cli::cli_alert_warning("{.pkg {name}} status: UNINSTALLED - unable to identify/locate package")
     return(invisible("^"))
   }
 
   # Package built locally
   if (src %in% c("local", "load_all()")) {
-    cli::cli_alert_warning("{.code {name}} status: UNKNOWN - unable to identify status (via sha code) for package built locally")
+    cli::cli_alert_warning("{.pkg {name}} status: UNKNOWN - unable to identify status (via sha code) for package built locally")
     return(invisible("?"))
   }
 
   # CRAN Packages
   if (stringr::str_detect(src, "CRAN")) {
-    cli::cli_alert_warning("{.code {name}} status: UNKNOWN - unable to identify status (via sha code) for CRAN package")
+    cli::cli_alert_warning("{.pkg {name}} status: UNKNOWN - unable to identify status (via sha code) for CRAN package")
     return(invisible("?"))
   }
 
@@ -58,23 +58,23 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # Check for valid github sha
   if(!is.null(local_sha) & (is.na(local_sha) | local_sha == "")) {
-    cli::cli_alert_warning("{.code {name}} status: UNKNOWN - unable to identify status (via sha code) for this Github package")
+    cli::cli_alert_warning("{.pkg {name}} status: UNKNOWN - unable to identify status (via sha code) for this Github package")
     return(invisible("?"))
   }
 
   # Compare local to remote SHA
   new_updates = remote_sha != local_sha
   new_updates_text <- ifelse(new_updates == TRUE, '', ' no')
-  msg <- cli::cli_inform("{org} package {.code {name}} has{new_updates_text} new updates")
+  msg <- cli::cli_inform("{org} package {.pkg {name}} has{new_updates_text} new updates")
 
 
   if (!is.null(local_sha) & new_updates) {
-    cli::cli_alert_warning("{.code {name}} status: OUT OF DATE - local version of package is behind the latest release on GitHub")
+    cli::cli_alert_warning("{.pkg {name}} status: OUT OF DATE - local version of package is behind the latest release on GitHub")
     return(invisible("*"))
   }
 
   if (!is.null(local_sha) & remote_sha == local_sha & !suppress_success) {
-    cli::cli_alert_info("{.code {name}} status: UP TO DATE - local version of package matches the latest release on GitHub")
+    cli::cli_alert_info("{.pkg {name}} status: UP TO DATE - local version of package matches the latest release on GitHub")
   }
 
   if (!is.null(local_sha) & remote_sha == local_sha) {
