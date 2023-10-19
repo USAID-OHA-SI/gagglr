@@ -5,7 +5,7 @@
     return()
 
   crayon::num_colors(TRUE)
-  oha_attach()
+  # oha_attach()
 }
 
 is_attached <- function(x) {

@@ -11,8 +11,8 @@ oha_attach <- function(){
 
   message(
     cli::rule(
-      left = crayon::bold("Attaching packages"),
-      right = paste0("OHA tools ", utils::packageVersion("gagglr"))
+      left = crayon::bold("Attaching core OHA packages"),
+      right = paste0("gagglr ", utils::packageVersion("gagglr"))
     ))
 
   versions <- vapply(to_load, package_version, character(1))
