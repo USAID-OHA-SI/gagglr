@@ -124,9 +124,14 @@ extract_remote_sha <- function(name, url = "https://github.com/USAID-OHA-SI"){
 #'
 #' @keywords internal
 print_update_text <- function(name, org){
-  cli::cli_inform(c('To update {.pkg {name}}, run the code below:',
-                    '{.code # install.packages("pak")}',
-                    '{.code pak::pak("{org}/{name}")}'))
+
+  if(!requireNamespace('pak', quietly = TRUE)){
+    cli::cli_inform(c('To update {.pkg {name}}, run the code below:',
+                      '{.code install.packages("pak")}',
+                      '{.code pak::pak("{org}/{name}")}'))
+  } else {
+    cli::cli_inform('To update {.pkg {name}}, run: {.code pak::pak("{org}/{name}")}')
+  }
 
   if(name %in% oha_packages()){
     new_url <- glue::glue("https://usaid-oha-si.github.io/{name}/news/index.html")
