@@ -64,9 +64,6 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # Compare local to remote SHA
   new_updates = remote_sha != local_sha
-  new_updates_text <- ifelse(new_updates == TRUE, '', ' no')
-  msg <- cli::cli_inform("{org} package {.pkg {name}} has{new_updates_text} new updates")
-
 
   if (!is.null(local_sha) & new_updates) {
     cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('OUT OF DATE')} - local version of package is behind the latest release on GitHub")
