@@ -1,5 +1,9 @@
-# gagglr 0.1.0
-* Include `themask` as a new supported packaged [2023-10-02]
+# gagglr 0.1
+* Allow user the option to automatically install outdated/missing packages with `oha_update()` [2023-11-14]
+* Provide code to update package from GH when package is out of date [2023-11-14]
+* Convert printed messages from `usethis::ui_` to using `cli::cli_alert` [2023-11-14]
+* Include `cascade` as a supported package [2023-11-14]
+* Include `themask` as a new supported package [2023-10-02]
 * Remove extra line printed with X using `library(gagglr)` when all packages are available [2022-08-05]
 * Upgrade version to stable [2022-08-15]
 

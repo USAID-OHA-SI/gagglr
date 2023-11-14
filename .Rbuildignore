@@ -6,3 +6,5 @@
 ^\.github$
 ^data-raw$
 pkgdown/
+^docs$
+_pkgdown.yml

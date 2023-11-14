@@ -1,4 +1,7 @@
 .onAttach <- function(...) {
+
+  oha_check("gagglr", suppress_success = TRUE)
+
   needed <- core[!is_attached(core)]
   available <- core[vapply(needed, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))]
   if (length(available) == 0)

@@ -5,37 +5,96 @@
 #' GitHub and your local environment, but may still be behind on recent commits
 #' that do not merit a full version update.
 #'
+#' @param install do you want to install or just print the status, default =
+#'   FALSE
+#' @param core_only only check/install core OHA package? default = FALSE
+#'
 #' @export
 #' @examples
 #' \dontrun{
+#' #list of what packages are out of date/non installed w/ code to install
 #' oha_update()
+#'
+#' #interactively install core packages
+#' oha_update(install = TRUE, core_only = TRUE)
+#'
+#' #automatically install all OHA packages
+#' oha_update(install = TRUE)
 #' }
-oha_update <- function() {
+oha_update <- function(install = FALSE, core_only = FALSE) {
 
-  df_pkg <- oha_tbl()
-  behind <- dplyr::filter(df_pkg, behind)
+  behind <- oha_outdated(core_only)
 
-  if (nrow(behind) == 0) {
+  if(nrow(behind) == 0) {
     cli::cat_line("All OHA packages up-to-date")
     return(invisible())
   }
 
-  cli::cat_line(cli::pluralize(
-    "The following {cli::qty(nrow(behind))}package{?s} {?is/are} out of date:"
-  ))
-  cli::cat_line()
-  cli::cat_bullet(format(behind$package), " (", behind$version, ")")
-
-  cli::cat_line()
-  cli::cat_line("Start a clean R session then run:")
-
-  gh_pkgs <-paste0("USAID-OHA-SI/", behind$package)
-  gh_pkgs_str <- paste0(deparse(gh_pkgs), collapse = "\n")
-  cli::cat_line("remotes::install_github(", gh_pkgs_str, ")")
+  if(install == FALSE){
+    cli::cat_line(cli::pluralize(
+      "The following {cli::qty(nrow(behind))}package{?s} {?is/are} out of date:"
+    ))
+    cli::cat_line()
+    cli::cat_bullet(format(behind$package), " (", behind$version, ")")
+    cli::cat_line()
+    cli::cat_line("Start a clean R session then run:")
+    gh_pkgs_str <- paste0(deparse(behind$package_gh), collapse = "\n")
+    cli::cat_line("pak::pak(", gh_pkgs_str, ")")
+  } else if(core_only == TRUE) {
+    rstudioapi::restartSession("gagglr:::oha_install_outdated(core_only = TRUE)")
+  } else {
+    rstudioapi::restartSession("gagglr:::oha_install_outdated()")
+  }
 
   invisible()
 }
 
+
+#' Identify Outdated OHA packages
+#'
+#' @inheritParams oha_update
+#'
+#' @keywords internal
+#' @return df of outdated or missing packages
+oha_outdated <- function(core_only = FALSE){
+
+  df_pkg <- oha_tbl()
+  behind <- dplyr::filter(df_pkg, behind)
+
+  if(core_only)
+    behind <- dplyr::filter(behind, core == TRUE | package == "gagglr")
+
+  behind <- behind %>%
+    dplyr::mutate(package_gh = paste0("USAID-OHA-SI/", package))
+
+  return(behind)
+
+}
+
+#' Install Outdated or Missing OHA Packages
+#'
+#' Used to automatically install any missing or outdated OHA packages from
+#' GitHub. Ideally running with just core packages and other packages should
+#' be installed individually using `pak::pak("USAID-OHA-SI/[name]")`.
+#'
+#' @inheritParams oha_update
+#'
+#' @keywords internal
+#'
+#' @examples
+#' \dontrun{
+#' oha_install_outdated()
+#' }
+oha_install_outdated <- function(core_only = FALSE){
+  gh_pkgs <- oha_outdated(core_only)$package_gh
+
+  if(length(gh_pkgs) == 0) {
+    cli::cat_line("All OHA packages up-to-date")
+    return(invisible())
+  }
+
+  pak::pak(gh_pkgs)
+}
 
 #' Get a situation report on OHA packages
 #'

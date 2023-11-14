@@ -34,19 +34,19 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # package not installed or built locally
   if(is.na(src)) {
-    usethis::ui_warn("[{name}] status: UNINSTALLED - unable to identify/locate package")
+    cli::cli_alert_danger("{.pkg {name}} status: {cli::col_br_red('UNINSTALLED')} - unable to identify/locate package")
     return(invisible("^"))
   }
 
   # Package built locally
   if (src %in% c("local", "load_all()")) {
-    usethis::ui_warn("[{name}] status: UNKNOWN - unable to identify status (via sha code) for package built locally")
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for package built locally")
     return(invisible("?"))
   }
 
   # CRAN Packages
   if (stringr::str_detect(src, "CRAN")) {
-    usethis::ui_warn("[{name}] status: UNKNOWN - unable to identify status (via sha code) for CRAN package")
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for CRAN package")
     return(invisible("?"))
   }
 
@@ -58,22 +58,21 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # Check for valid github sha
   if(!is.null(local_sha) & (is.na(local_sha) | local_sha == "")) {
-    usethis::ui_warn("[{name}] status: UNKNOWN - unable to identify status (via sha code) for this Github package")
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for this Github package")
     return(invisible("?"))
   }
 
   # Compare local to remote SHA
   new_updates = remote_sha != local_sha
-  msg <- glue::glue("Package [{org}/{name}] has{ifelse(new_updates == TRUE, '', ' no')} new updates")
-
 
   if (!is.null(local_sha) & new_updates) {
-    usethis::ui_warn("[{name}] status: OUT OF DATE - local version of package is behind the latest release on GitHub")
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('OUT OF DATE')} - local version of package is behind the latest release on GitHub")
+    print_update_text(name, org)
     return(invisible("*"))
   }
 
   if (!is.null(local_sha) & remote_sha == local_sha & !suppress_success) {
-    usethis::ui_info("[{name}] status: UP TO DATE - local version of package matches the latest release on GitHub")
+    cli::cli_alert_info("{.pkg {name}} status: {cli::col_br_cyan('UP TO DATE')} - local version of package matches the latest release on GitHub")
   }
 
   if (!is.null(local_sha) & remote_sha == local_sha) {
@@ -111,5 +110,30 @@ extract_remote_sha <- function(name, url = "https://github.com/USAID-OHA-SI"){
   } else {
     return(remote_sha)
   }
+
+}
+
+
+#' Print info for outdated packages
+#'
+#' @inheritParams oha_check
+#' @param org GH organization
+#'
+#' @keywords internal
+print_update_text <- function(name, org){
+
+  if(name %in% oha_packages()){
+    new_url <- paste0("https://usaid-oha-si.github.io/", name, "/news/index.html")
+    cli::cli_alert_info("See the changelog for more {.url {new_url}}")
+  }
+
+  if(!requireNamespace('pak', quietly = TRUE)){
+    cli::cli_inform(c('To update {.pkg {name}}, start a clean session and run the code below:',
+                      '{.code install.packages("pak")}',
+                      '{.code pak::pak("{org}/{name}")}'))
+  } else {
+    cli::cli_inform('To update {.pkg {name}}, start a clean session and run: {.code pak::pak("{org}/{name}")}')
+  }
+
 
 }
