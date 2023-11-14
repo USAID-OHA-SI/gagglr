@@ -19,11 +19,11 @@ Imports:
     dplyr,
     git2r,
     magrittr,
+    pak,
     rstudioapi,
     sessioninfo,
     stringr,
     tibble,
-    usethis,
     utils
 Remotes:
   USAID-OHA-SI/glamr,
