@@ -37,6 +37,15 @@ oha_attach <- function(){
 
   message(paste(packages, collapse = "\n"))
 
+  if(length(setdiff(core, to_load) > 0)) {
+    miss_pkgs <- setdiff(core, to_load)
+    cli::cli_alert_warning("{length(miss_pkgs)} core package{?s} not found, whose functions may be utilized in this script.")
+    cli::cli_inform('To install {.pkg {miss_pkgs}}, start a clean session and run:')
+    miss_pkgs <- paste0("USAID-OHA-SI/", miss_pkgs)
+    miss_pkgs <- paste0(deparse(miss_pkgs), collapse = "\n")
+    cli::cat_line("`pak::pak(", miss_pkgs, ")`")
+  }
+
   suppressPackageStartupMessages(
     lapply(to_load, load_pkg)
   )
