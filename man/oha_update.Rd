@@ -4,7 +4,13 @@
 \alias{oha_update}
 \title{Update OHA packages}
 \usage{
-oha_update()
+oha_update(install = FALSE, core_only = FALSE)
+}
+\arguments{
+\item{install}{do you want to install or just print the status, default =
+FALSE}
+
+\item{core_only}{only check/install core OHA package? default = FALSE}
 }
 \description{
 This will check to see if all your OHA packages are up-to-date, and will
@@ -14,6 +20,13 @@ that do not merit a full version update.
 }
 \examples{
 \dontrun{
+#list of what packages are out of date/non installed w/ code to install
 oha_update()
+
+#interactively install core packages
+oha_update(install = TRUE, core_only = TRUE)
+
+#automatically install all OHA packages
+oha_update(install = TRUE)
 }
 }
