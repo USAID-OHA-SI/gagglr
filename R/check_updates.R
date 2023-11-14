@@ -128,11 +128,11 @@ print_update_text <- function(name, org){
   }
 
   if(!requireNamespace('pak', quietly = TRUE)){
-    cli::cli_inform(c('To update {.pkg {name}}, run the code below:',
+    cli::cli_inform(c('To update {.pkg {name}}, start a clean session and run the code below:',
                       '{.code install.packages("pak")}',
                       '{.code pak::pak("{org}/{name}")}'))
   } else {
-    cli::cli_inform('To update {.pkg {name}}, run: {.code pak::pak("{org}/{name}")}')
+    cli::cli_inform('To update {.pkg {name}}, start a clean session and run: {.code pak::pak("{org}/{name}")}')
   }
 
 
