@@ -1,6 +1,6 @@
 Package: gagglr
 Title: Corralling Our Gaggle of OHA R Utility Packages
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Aaron", "Chafetz", ,"achafetz@usaid.gov", c("aut", "cre")),
     person("Baboyma", "Kagniniwa", , "bkagniniwa@usaid.gov", c("aut")))
