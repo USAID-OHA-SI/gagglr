@@ -31,7 +31,7 @@ oha_update <- function() {
 
   gh_pkgs <-paste0("USAID-OHA-SI/", behind$package)
   gh_pkgs_str <- paste0(deparse(gh_pkgs), collapse = "\n")
-  cli::cat_line("remotes::install_github(", gh_pkgs_str, ")")
+  cli::cat_line("pak::pak(", gh_pkgs_str, ")")
 
   invisible()
 }
