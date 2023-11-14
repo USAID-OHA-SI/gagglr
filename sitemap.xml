@@ -37,6 +37,12 @@
     <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_check.html</loc>
   </url>
   <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_install_outdated.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_outdated.html</loc>
+  </url>
+  <url>
     <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_packages.html</loc>
   </url>
   <url>
@@ -50,5 +56,8 @@
   </url>
   <url>
     <loc>https://usaid-oha-si.github.io/gagglr/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/print_update_text.html</loc>
   </url>
 </urlset>

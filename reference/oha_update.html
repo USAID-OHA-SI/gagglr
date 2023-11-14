@@ -20,7 +20,7 @@ that do not merit a full version update."><meta property="og:image" content="htt
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gagglr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
       </span>
     </div>
 
@@ -65,14 +65,32 @@ that do not merit a full version update.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">oha_update</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">oha_update</span><span class="op">(</span>install <span class="op">=</span> <span class="cn">FALSE</span>, core_only <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>install</dt>
+<dd><p>do you want to install or just print the status, default =
+FALSE</p></dd>
+
+
+<dt>core_only</dt>
+<dd><p>only check/install core OHA package? default = FALSE</p></dd>
+
+</dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">#list of what packages are out of date/non installed w/ code to install</span></span></span>
 <span class="r-in"><span><span class="fu">oha_update</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#interactively install core packages</span></span></span>
+<span class="r-in"><span><span class="fu">oha_update</span><span class="op">(</span>install <span class="op">=</span> <span class="cn">TRUE</span>, core_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#automatically install all OHA packages</span></span></span>
+<span class="r-in"><span><span class="fu">oha_update</span><span class="op">(</span>install <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
