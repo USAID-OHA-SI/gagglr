@@ -123,7 +123,7 @@ extract_remote_sha <- function(name, url = "https://github.com/USAID-OHA-SI"){
 print_update_text <- function(name, org){
 
   if(name %in% oha_packages()){
-    new_url <- glue::glue("https://usaid-oha-si.github.io/{name}/news/index.html")
+    new_url <- paste0("https://usaid-oha-si.github.io/", name, "/news/index.html")
     cli::cli_alert_info("See the changelog for more {.url {new_url}}")
   }
 
