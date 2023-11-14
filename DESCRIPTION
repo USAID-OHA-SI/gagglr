@@ -36,6 +36,7 @@ Remotes:
   USAID-OHA-SI/themask,
   USAID-OHA-SI/COVIDutilities,
   USAID-OHA-SI/selfdestructin5,
-  USAID-OHA-SI/Wavelength
+  USAID-OHA-SI/Wavelength,
+  USAID-OHA-SI/cascade
 URL: https://github.com/USAID-OHA-SI/gagglr,https://usaid-oha-si.github.io/gagglr/
 BugReports: https://github.com/USAID-OHA-SI/gagglr/issues
