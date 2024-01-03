@@ -21,7 +21,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
     return(oha_sitrep())
 
   #identify organization
-  org <- stringr::str_remove(url, "https://github.com/")
+  org <- gsub("https://github.com/", "", url)
 
   # Extract remote SHA Code
   remote_sha <- extract_remote_sha(name, url)
@@ -47,16 +47,18 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
   }
 
   # CRAN Packages
-  if (stringr::str_detect(src, "CRAN")) {
+  if (grepl("CRAN", src)) {
     cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for CRAN package",
                            class = "packageStartupMessage")
     return(invisible("?"))
   }
 
   # Extract local SHA Code
-  if (stringr::str_detect(src, "Github")) {
+  if (grepl("Github", src)) {
     #package installed
-    local_sha <- stringr::str_extract(src, "(?<=\\@).*(?=\\))")
+    # local_sha <- stringr::str_extract(src, "(?<=\\@).*(?=\\))")
+    local_sha <- sub(".*@", "", src)
+    local_sha <- sub(")", "", src)
   }
 
   # Compare local to remote SHA

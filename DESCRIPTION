@@ -22,7 +22,6 @@ Imports:
     pak,
     rstudioapi,
     sessioninfo,
-    stringr,
     tibble,
     utils
 Remotes:
