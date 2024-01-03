@@ -56,12 +56,6 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
     local_sha <- stringr::str_extract(src, "(?<=\\@).*(?=\\))")
   }
 
-  # Check for valid github sha
-  if(!is.null(local_sha) & (is.na(local_sha) | local_sha == "")) {
-    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for this Github package")
-    return(invisible("?"))
-  }
-
   # Compare local to remote SHA
   new_updates = remote_sha != local_sha
 
@@ -82,7 +76,10 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
     return(invisible(""))
   }
 
-  # return(new_updates)
+  # if reaching this point -> Unknown Status
+  cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for this package")
+  return(invisible("?"))
+
 }
 
 
