@@ -65,17 +65,20 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
   # Compare local to remote SHA
   new_updates = remote_sha != local_sha
 
+  # Package is out of date on GitHub
   if (!is.null(local_sha) & new_updates) {
     cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('OUT OF DATE')} - local version of package is behind the latest release on GitHub")
     print_update_text(name, org)
     return(invisible("*"))
   }
 
-  if (!is.null(local_sha) & remote_sha == local_sha & !suppress_success) {
+  # Package is up to date on GitHub
+  if (!is.null(local_sha) & !new_updates & !suppress_success) {
     cli::cli_alert_info("{.pkg {name}} status: {cli::col_br_cyan('UP TO DATE')} - local version of package matches the latest release on GitHub")
   }
 
-  if (!is.null(local_sha) & remote_sha == local_sha) {
+  # Package is up to date on GitHub (return blank placeholder for oha_sitrep)
+  if (!is.null(local_sha) & !new_updates) {
     return(invisible(""))
   }
 
