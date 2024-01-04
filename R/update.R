@@ -93,8 +93,8 @@ oha_install_outdated <- function(core_only = FALSE){
     return(invisible())
   }
 
-  install.packages(gh_pkgs, repos = c("https://usaid-oha-si.r-universe.dev",
-                                      "https://cloud.r-project.org"))
+  utils::install.packages(gh_pkgs, repos = c("https://usaid-oha-si.r-universe.dev",
+                                             "https://cloud.r-project.org"))
 }
 
 #' Get a situation report on OHA packages
