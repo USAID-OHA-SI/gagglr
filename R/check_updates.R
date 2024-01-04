@@ -51,12 +51,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
   }
 
   # Extract local SHA Code
-  local_sha <- NULL
-  if (grepl("Github", src)) {
-    # local_sha <- stringr::str_extract(src, "(?<=\\@).*(?=\\))")
-    local_sha <- sub(".*@", "", src)
-    local_sha <- sub(")", "", local_sha)
-  }
+  local_sha <- extract_local_sha(name)
 
   # No local SHA found -> Unknown Status
   if(is.null(local_sha)){
@@ -117,6 +112,37 @@ extract_remote_sha <- function(name, url = "https://github.com/USAID-OHA-SI"){
   } else {
     return(remote_sha)
   }
+
+}
+
+#' Extract Local SHA
+#'
+#' Pulls the latest SHA (commit ID) from Package Info or uses rOpenSci API
+#'
+#' @param name package name
+#'
+#' @return 40 character SHA hash vector
+#' @keywords internal
+#'
+extract_local_sha <- function(name){
+
+  # Extract package source
+  src <- sessioninfo::package_info(name, dependencies = FALSE)$source
+
+  # Extract Local SHA from GitHub or from rOpenSci
+  if (grepl("Github", src)) {
+    # local_sha <- stringr::str_extract(src, "(?<=\\@).*(?=\\))")
+    local_sha <- sub(".*@", "", src)
+    local_sha <- sub(")", "", local_sha)
+  } else if (grepl("usaid-oha-si.r-universe.dev", src)){
+    version <- sessioninfo::package_info(name, dependencies = FALSE)$ondiskversion
+    url <- paste0('https://usaid-oha-si.r-universe.dev/packages/', name, "/", version)
+    local_sha <- jsonlite::fromJSON(url)$RemoteSha[1]
+  } else {
+    local_sha <- NULL
+  }
+
+  return(local_sha)
 
 }
 
