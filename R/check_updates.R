@@ -160,13 +160,8 @@ print_update_text <- function(name, org){
     cli::cli_alert_info("See the changelog for more {.url {new_url}}")
   }
 
-  if(!requireNamespace('pak', quietly = TRUE)){
-    cli::cli_inform(c('To update {.pkg {name}}, start a clean session and run the code below:',
-                      '{.code install.packages("pak")}',
-                      '{.code pak::pak("{org}/{name}")}'))
-  } else {
-    cli::cli_inform('To update {.pkg {name}}, start a clean session and run: {.code pak::pak("{org}/{name}")}')
-  }
+  cli::cli_alert_info('To update {.pkg {name}}, start a clean session and run:')
+  cli::cli_bullets('{.code install.packages("{name}", repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))}')
 
 
 }

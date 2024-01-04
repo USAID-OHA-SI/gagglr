@@ -38,8 +38,8 @@ oha_update <- function(install = FALSE, core_only = FALSE) {
     cli::cat_bullet(format(behind$package), " (", behind$version, ")")
     cli::cat_line()
     cli::cat_line("Start a clean R session then run:")
-    gh_pkgs_str <- paste0(deparse(behind$package_gh), collapse = "\n")
-    cli::cat_line("pak::pak(", gh_pkgs_str, ")")
+    gh_pkgs_str <- paste0(deparse(behind$package), collapse = "\n")
+    cli::cat_line('install.packages(', gh_pkgs_str, ', repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))')
   } else if(core_only == TRUE) {
     rstudioapi::restartSession("gagglr:::oha_install_outdated(core_only = TRUE)")
   } else {
@@ -74,8 +74,8 @@ oha_outdated <- function(core_only = FALSE){
 #' Install Outdated or Missing OHA Packages
 #'
 #' Used to automatically install any missing or outdated OHA packages from
-#' GitHub. Ideally running with just core packages and other packages should
-#' be installed individually using `pak::pak("USAID-OHA-SI/[name]")`.
+#' rOpenSci. Ideally running with just core packages and other packages should
+#' be installed individually using `install.packages("[name]", repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))`.
 #'
 #' @inheritParams oha_update
 #'
@@ -93,7 +93,8 @@ oha_install_outdated <- function(core_only = FALSE){
     return(invisible())
   }
 
-  pak::pak(gh_pkgs)
+  install.packages(gh_pkgs, repos = c("https://usaid-oha-si.r-universe.dev",
+                                      "https://cloud.r-project.org"))
 }
 
 #' Get a situation report on OHA packages

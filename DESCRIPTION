@@ -20,7 +20,6 @@ Imports:
     git2r,
     jsonlite,
     magrittr,
-    pak,
     rstudioapi,
     sessioninfo,
     tibble,

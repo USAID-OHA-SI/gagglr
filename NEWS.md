@@ -1,5 +1,6 @@
 # gagglr 0.2
-* Update `oha_check` to detect SHA when package is isntalled from rOpenSci [2023-01-04]
+* Change instructions to install from rOpenSci [2023-01-04]
+* Update `oha_check` to detect SHA when package is installed from rOpenSci [2023-01-04]
 
 # gagglr 0.1
 * Update logic flow on `oha_check` for startup [2023-01-04]
