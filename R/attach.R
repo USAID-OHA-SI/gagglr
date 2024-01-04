@@ -43,7 +43,7 @@ oha_attach <- function(){
     cli::cli_inform('To install {.pkg {miss_pkgs}}, start a clean session and run:')
     miss_pkgs <- paste0("USAID-OHA-SI/", miss_pkgs)
     miss_pkgs <- paste0(deparse(miss_pkgs), collapse = "\n")
-    cli::cat_line("`pak::pak(", miss_pkgs, ")`")
+    cli::cat_line('`install.packages(', miss_pkgs, ', repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))`')
   }
 
   suppressPackageStartupMessages(

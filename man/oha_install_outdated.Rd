@@ -11,8 +11,8 @@ oha_install_outdated(core_only = FALSE)
 }
 \description{
 Used to automatically install any missing or outdated OHA packages from
-GitHub. Ideally running with just core packages and other packages should
-be installed individually using \code{pak::pak("USAID-OHA-SI/[name]")}.
+rOpenSci. Ideally running with just core packages and other packages should
+be installed individually using \code{install.packages("[name]", repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))}.
 }
 \examples{
 \dontrun{

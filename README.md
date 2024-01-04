@@ -3,24 +3,27 @@
 Corralling our gaggle of OHA R utility packages
 
 <!-- badges: start -->
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/USAID-OHA-SI/gagglr/workflows/R-CMD-check/badge.svg)](https://github.com/USAID-OHA-SI/gagglr/actions)
+[![gagglr status badge](https://usaid-oha-si.r-universe.dev/badges/gagglr)](https://usaid-oha-si.r-universe.dev/gagglr)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![:name status badge](https://usaid-oha-si.r-universe.dev/badges/:name)](https://usaid-oha-si.r-universe.dev/)
 <!-- badges: end -->
 
 The goal of gagglr is to provide a check to users to ensure they are using the latest versions of the [core OHA utility packages](https://usaid-oha-si.github.io/tools/) since they are not updated on regular intervals.
 
 ## Installation
 
-`gagglr` is not on CRAN, so you will have to install it directly from GitHub using `pak`.
-
-If you do not have `pak` installed, you will have to run the `install.packages("pak")` line in the code below as well.
+`gagglr` is not on CRAN, so you will have to install it directly from [rOpenSci](https://usaid-oha-si.r-universe.dev/packages) or [GitHub](https://github.com/USAID-OHA-SI/) using the code found below.
 
 ``` r
 ## SETUP
 
-  #install package with vignettes
-    install.packages("pak")
-    pak::pak("USAID-OHA-SI/gagglr")
+  #install from rOpenSci
+    install.packages('gagglr', repos = c('https://usaid-oha-si.r-universe.dev', 'https://cloud.r-project.org'))
+    
+  #alt: install from GitHub using pak
+    #install.packages("pak")
+    #pak::pak("USAID-OHA-SI/gagglr")
     
   #load the package
     library(gagglr)
