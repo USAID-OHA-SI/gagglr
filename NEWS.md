@@ -1,4 +1,6 @@
 # gagglr 0.1
+* Remove stringr dependency [2023-01-03]
+* Resolve bug with attach package check to build on rOpenSci [2023-01-03]
 * Allow user the option to automatically install outdated/missing packages with `oha_update()` [2023-11-14]
 * Provide code to update package from GH when package is out of date [2023-11-14]
 * Convert printed messages from `usethis::ui_` to using `cli::cli_alert` [2023-11-14]

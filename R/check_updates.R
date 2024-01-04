@@ -21,7 +21,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
     return(oha_sitrep())
 
   #identify organization
-  org <- stringr::str_remove(url, "https://github.com/")
+  org <- gsub("https://github.com/", "", url)
 
   # Extract remote SHA Code
   remote_sha <- extract_remote_sha(name, url)
@@ -34,52 +34,60 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # package not installed or built locally
   if(is.na(src)) {
-    cli::cli_alert_danger("{.pkg {name}} status: {cli::col_br_red('UNINSTALLED')} - unable to identify/locate package")
+    cli::cli_alert_danger("{.pkg {name}} status: {cli::col_br_red('UNINSTALLED')} - unable to identify/locate package",
+                          class = "packageStartupMessage")
     return(invisible("^"))
   }
 
   # Package built locally
   if (src %in% c("local", "load_all()")) {
-    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for package built locally")
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for package built locally",
+                           class = "packageStartupMessage")
     return(invisible("?"))
   }
 
   # CRAN Packages
-  if (stringr::str_detect(src, "CRAN")) {
-    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for CRAN package")
+  if (grepl("CRAN", src)) {
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for CRAN package",
+                           class = "packageStartupMessage")
     return(invisible("?"))
   }
 
   # Extract local SHA Code
-  if (stringr::str_detect(src, "Github")) {
+  if (grepl("Github", src)) {
     #package installed
-    local_sha <- stringr::str_extract(src, "(?<=\\@).*(?=\\))")
-  }
-
-  # Check for valid github sha
-  if(!is.null(local_sha) & (is.na(local_sha) | local_sha == "")) {
-    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for this Github package")
-    return(invisible("?"))
+    # local_sha <- stringr::str_extract(src, "(?<=\\@).*(?=\\))")
+    local_sha <- sub(".*@", "", src)
+    local_sha <- sub(")", "", src)
   }
 
   # Compare local to remote SHA
   new_updates = remote_sha != local_sha
 
+  # Package is out of date on GitHub
   if (!is.null(local_sha) & new_updates) {
-    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('OUT OF DATE')} - local version of package is behind the latest release on GitHub")
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('OUT OF DATE')} - local version of package is behind the latest release on GitHub",
+                           class = "packageStartupMessage")
     print_update_text(name, org)
     return(invisible("*"))
   }
 
-  if (!is.null(local_sha) & remote_sha == local_sha & !suppress_success) {
-    cli::cli_alert_info("{.pkg {name}} status: {cli::col_br_cyan('UP TO DATE')} - local version of package matches the latest release on GitHub")
+  # Package is up to date on GitHub
+  if (!is.null(local_sha) & !new_updates & !suppress_success) {
+    cli::cli_alert_info("{.pkg {name}} status: {cli::col_br_cyan('UP TO DATE')} - local version of package matches the latest release on GitHub",
+                        class = "packageStartupMessage")
   }
 
-  if (!is.null(local_sha) & remote_sha == local_sha) {
+  # Package is up to date on GitHub (return blank placeholder for oha_sitrep)
+  if (!is.null(local_sha) & !new_updates) {
     return(invisible(""))
   }
 
-  # return(new_updates)
+  # if reaching this point -> Unknown Status
+  cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for this package",
+                         class = "packageStartupMessage")
+  return(invisible("?"))
+
 }
 
 
