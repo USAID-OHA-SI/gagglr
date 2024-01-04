@@ -13,16 +13,17 @@ The goal of gagglr is to provide a check to users to ensure they are using the l
 
 ## Installation
 
-`gagglr` is not on CRAN, so you will have to install it directly from GitHub using `pak`.
-
-If you do not have `pak` installed, you will have to run the `install.packages("pak")` line in the code below as well.
+`gagglr` is not on CRAN, so you will have to install it directly from [rOpenSci](https://usaid-oha-si.r-universe.dev/packages) or [GitHub](https://github.com/USAID-OHA-SI/) using the code found below.
 
 ``` r
 ## SETUP
 
-  #install package with vignettes
-    install.packages("pak")
-    pak::pak("USAID-OHA-SI/gagglr")
+  #install from rOpenSci
+    install.packages('gagglr', repos = c('https://usaid-oha-si.r-universe.dev', 'https://cloud.r-project.org'))
+    
+  #alt: install from GitHub using pak
+    #install.packages("pak")
+    #pak::pak("USAID-OHA-SI/gagglr")
     
   #load the package
     library(gagglr)
