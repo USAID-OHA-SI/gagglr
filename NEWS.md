@@ -1,4 +1,5 @@
 # gagglr 0.1
+* Update logic flow on `oha_check` for startup [2023-01-04]
 * Remove stringr dependency [2023-01-03]
 * Resolve bug with attach package check to build on rOpenSci [2023-01-03]
 * Allow user the option to automatically install outdated/missing packages with `oha_update()` [2023-11-14]

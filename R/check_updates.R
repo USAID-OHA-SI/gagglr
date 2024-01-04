@@ -26,10 +26,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
   # Extract remote SHA Code
   remote_sha <- extract_remote_sha(name, url)
 
-  # Local SHA Code
-  local_sha <- NULL
-
-  #package source
+  # Extract package source
   src <- sessioninfo::package_info(name, dependencies = FALSE)$source
 
   # package not installed or built locally
@@ -54,18 +51,25 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
   }
 
   # Extract local SHA Code
+  local_sha <- NULL
   if (grepl("Github", src)) {
-    #package installed
     # local_sha <- stringr::str_extract(src, "(?<=\\@).*(?=\\))")
     local_sha <- sub(".*@", "", src)
-    local_sha <- sub(")", "", src)
+    local_sha <- sub(")", "", local_sha)
   }
 
-  # Compare local to remote SHA
+  # No local SHA found -> Unknown Status
+  if(is.null(local_sha)){
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for this package",
+                           class = "packageStartupMessage")
+    return(invisible("?"))
+  }
+
+  # Compare local to remote SHA to see if there are updates on GitHub
   new_updates = remote_sha != local_sha
 
   # Package is out of date on GitHub
-  if (!is.null(local_sha) & new_updates) {
+  if (new_updates) {
     cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('OUT OF DATE')} - local version of package is behind the latest release on GitHub",
                            class = "packageStartupMessage")
     print_update_text(name, org)
@@ -73,20 +77,15 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
   }
 
   # Package is up to date on GitHub
-  if (!is.null(local_sha) & !new_updates & !suppress_success) {
+  if (!new_updates && !suppress_success) {
     cli::cli_alert_info("{.pkg {name}} status: {cli::col_br_cyan('UP TO DATE')} - local version of package matches the latest release on GitHub",
                         class = "packageStartupMessage")
   }
 
   # Package is up to date on GitHub (return blank placeholder for oha_sitrep)
-  if (!is.null(local_sha) & !new_updates) {
+  if (!new_updates) {
     return(invisible(""))
   }
-
-  # if reaching this point -> Unknown Status
-  cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for this package",
-                         class = "packageStartupMessage")
-  return(invisible("?"))
 
 }
 
