@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gagglr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -92,14 +92,16 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><code>gagglr</code> is not on CRAN, so you will have to install it directly from GitHub using <code>pak</code>.</p>
-<p>If you do not have <code>pak</code> installed, you will have to run the <code>install.packages("pak")</code> line in the code below as well.</p>
+<p><code>gagglr</code> is not on CRAN, so you will have to install it directly from <a href="https://usaid-oha-si.r-universe.dev/packages" class="external-link">rOpenSci</a> or <a href="https://github.com/USAID-OHA-SI/" class="external-link">GitHub</a> using the code found below.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## SETUP</span></span>
 <span></span>
-<span>  <span class="co">#install package with vignettes</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
-<span>    <span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"USAID-OHA-SI/gagglr"</span><span class="op">)</span></span>
+<span>  <span class="co">#install from rOpenSci</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'gagglr'</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://usaid-oha-si.r-universe.dev'</span>, <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span>  <span class="co">#alt: install from GitHub using pak</span></span>
+<span>    <span class="co">#install.packages("pak")</span></span>
+<span>    <span class="co">#pak::pak("USAID-OHA-SI/gagglr")</span></span>
 <span>    </span>
 <span>  <span class="co">#load the package</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/USAID-OHA-SI/gagglr" class="external-link">gagglr</a></span><span class="op">)</span></span>
@@ -148,8 +150,10 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://github.com/USAID-OHA-SI/gagglr/actions" class="external-link"><img src="https://github.com/USAID-OHA-SI/gagglr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://usaid-oha-si.r-universe.dev/gagglr" class="external-link"><img src="https://usaid-oha-si.r-universe.dev/badges/gagglr" alt="gagglr status badge"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://usaid-oha-si.r-universe.dev/" class="external-link"><img src="https://usaid-oha-si.r-universe.dev/badges/:name" alt=":name status badge"></a></li>
 </ul>
 </div>
 
