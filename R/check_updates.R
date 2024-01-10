@@ -60,6 +60,13 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
     return(invisible("?"))
   }
 
+  # rOpenSci API blocked on AIDNET -> Unknown Status
+  if(local_sha == "AIDNET"){
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status for this package while on AIDNET",
+                           class = "packageStartupMessage")
+    return(invisible("?"))
+  }
+
   # Compare local to remote SHA to see if there are updates on GitHub
   new_updates = remote_sha != local_sha
 
@@ -137,7 +144,10 @@ extract_local_sha <- function(name){
   } else if (grepl("usaid-oha-si.r-universe.dev", src)){
     version <- sessioninfo::package_info(name, dependencies = FALSE)$ondiskversion
     url <- paste0('https://usaid-oha-si.r-universe.dev/packages/', name, "/", version)
-    local_sha <- jsonlite::fromJSON(url)$RemoteSha[1]
+    local_sha <- tryCatch(
+      jsonlite::fromJSON(url)$RemoteSha[1],
+      error = function(c) "AIDNET",
+      warning = function(c) "AIDNET")
   } else {
     local_sha <- NULL
   }
