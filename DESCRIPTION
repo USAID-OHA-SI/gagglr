@@ -18,6 +18,7 @@ Imports:
     crayon,
     dplyr,
     git2r,
+    httr,
     jsonlite,
     magrittr,
     rstudioapi,
