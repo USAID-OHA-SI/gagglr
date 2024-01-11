@@ -1,5 +1,5 @@
 # gagglr 0.2
-* Develop custom message for unknown status when running `oha_check` on AIDNET [2024-01-10]
+* Develop solution for checking rOpenSci version from on AIDNET via [2024-01-10]
 * Change instructions to install from rOpenSci [2024-01-04]
 * Update `oha_check` to detect SHA when package is installed from rOpenSci [2024-01-04]
 
