@@ -16,6 +16,12 @@
 
 oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_success = FALSE) {
 
+  if(!curl::has_internet()){
+    cli::cli_alert_warning("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - no internet connection",
+                           class = "packageStartupMessage")
+    return(invisible("?"))
+  }
+
   #if nothing specified, run against all packages
   if(missing(name))
     return(oha_sitrep())
