@@ -1,4 +1,5 @@
 # gagglr 0.2
+* Allow users to run `check_updates` while offline, returning an unknown status, rather than an error that can keep the user from using a pacakge [2024-03-07]
 * Develop solution for checking rOpenSci version from on AIDNET via [2024-01-10]
 * Change instructions to install from rOpenSci [2024-01-04]
 * Update `oha_check` to detect SHA when package is installed from rOpenSci [2024-01-04]
