@@ -1,33 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/404.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/check_updates.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/check_updates.html</loc>
   </url>
   <url>
-    <loc>/reference/gagglr-package.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/core.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/extract_remote_sha.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/gagglr-package.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_attach.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_check.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_packages.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_sitrep.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_tbl.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/oha_update.html</loc>
+  </url>
+  <url>
+    <loc>https://usaid-oha-si.github.io/gagglr/reference/pipe.html</loc>
   </url>
 </urlset>

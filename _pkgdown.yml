@@ -1,6 +1,9 @@
+url: https://usaid-oha-si.github.io/gagglr/
+
 navbar:
   structure:
     left:
+    - home
     - intro
     - reference
     - articles
@@ -8,6 +11,9 @@ navbar:
     - news
     right: github
   components:
+    home:
+      icon: fas fa-home fa-lg
+      href: index.html
     reference:
       text: Reference
       href: reference/index.html
@@ -17,9 +23,12 @@ navbar:
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/USAID-OHA-SI/gagglr/
-      aria-label: github
 
 reference:
 - title: All functions
-  contents: '`check_updates`'
+  contents:
+  - oha_check
+  - oha_packages
+  - oha_sitrep
+  - oha_update
 
