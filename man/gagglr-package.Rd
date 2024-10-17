@@ -6,7 +6,7 @@
 \alias{gagglr-package}
 \title{gagglr: Corralling Our Gaggle of OHA R Utility Packages}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 Since package are developed with a regular update cycle, users can often be using outdated packages that resolve bug or add new features. This checks to ensure you are using the lastest version of the OHA core package and allows you to load them all at the start of a session.
 }
