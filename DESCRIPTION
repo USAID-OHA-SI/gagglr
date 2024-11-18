@@ -26,7 +26,8 @@ Imports:
     sessioninfo,
     tibble,
     utils,
-    rlang
+    rlang,
+    glue
 Remotes:
   USAID-OHA-SI/glamr,
   USAID-OHA-SI/glitr,

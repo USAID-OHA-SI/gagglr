@@ -22,13 +22,13 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # Check internet
   if(!curl::has_internet()){
-    rlang::inform("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - no internet connection",
+    rlang::inform(glue::glue("{name} status: {cli::col_br_yellow('UNKNOWN')} - no internet connection"),
                   class = "packageStartupMessage")
     return(invisible("?"))
   }
 
   # Get user warning preferences
-  quiet_warns <- getOption(paste0(name, ".suppressWarnings"), default = FALSE)
+  #quiet_warns <- getOption(paste0(name, ".suppressWarnings"), default = FALSE)
 
   #identify organization
   org <- gsub("https://github.com/", "", url)
@@ -41,21 +41,21 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # package not installed or built locally
   if(is.na(src)) {
-    rlang::inform("{.pkg {name}} status: {cli::col_br_red('UNINSTALLED')} - unable to identify/locate package",
+    rlang::inform(glue::glue("{name} status: {cli::col_br_red('UNINSTALLED')} - unable to identify/locate package"),
                   class = "packageStartupMessage")
     return(invisible("^"))
   }
 
   # Package built locally
   if (src %in% c("local", "load_all()")) {
-    rlang::inform("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for package built locally",
+    rlang::inform(glue::glue("{name} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for package built locally"),
                   class = "packageStartupMessage")
     return(invisible("?"))
   }
 
   # CRAN Packages
   if (grepl("CRAN", src)) {
-    rlang::inform("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for CRAN package",
+    rlang::inform(glue::glue("{name} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for CRAN package"),
                 class = "packageStartupMessage")
     return(invisible("?"))
   }
@@ -65,7 +65,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # No local SHA found -> Unknown Status
   if(is.null(local_sha)){
-    rlang::inform("{.pkg {name}} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for this package",
+    rlang::inform(glue::glue("{name} status: {cli::col_br_yellow('UNKNOWN')} - unable to identify status (via sha code) for this package"),
                   class = "packageStartupMessage")
     return(invisible("?"))
   }
@@ -75,7 +75,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # Package is out of date on GitHub
   if (new_updates) {
-    rlang::inform("{.pkg {name}} status: {cli::col_br_yellow('OUT OF DATE')} - local version of package is behind the latest release on GitHub",
+    rlang::inform(glue::glue("{name} status: {cli::col_br_yellow('OUT OF DATE')} - local version of package is behind the latest release on GitHub"),
                   class = "packageStartupMessage")
     print_update_text(name, org)
     return(invisible("*"))
@@ -83,7 +83,7 @@ oha_check <- function(name, url = "https://github.com/USAID-OHA-SI", suppress_su
 
   # Package is up to date on GitHub
   if (!new_updates && !suppress_success) {
-    rlang::inform("{.pkg {name}} status: {cli::col_br_cyan('UP TO DATE')} - local version of package matches the latest release on GitHub",
+    rlang::inform(glue::glue("{name} status: {cli::col_br_cyan('UP TO DATE')} - local version of package matches the latest release on GitHub"),
                   class = "packageStartupMessage")
   }
 

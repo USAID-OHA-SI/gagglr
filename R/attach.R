@@ -49,14 +49,17 @@ oha_attach <- function(){
   if(length(setdiff(core, to_load) > 0)) {
     miss_pkgs <- setdiff(core, to_load)
 
-    cli::cli_inform("{length(miss_pkgs)} core package{?s} not found, whose functions may be utilized in this script.", class = "packageStartupMessage")
+    cli::cli_inform(glue::glue("{length(miss_pkgs)} core package{?s} not found, whose functions may be utilized in this script."),
+                    class = "packageStartupMessage")
 
-    cli::cli_inform('To install {.pkg {miss_pkgs}}, start a clean session and run:', class = "packageStartupMessage")
+    cli::cli_inform(glue::glue('To install {.pkg {miss_pkgs}}, start a clean session and run:'),
+                    class = "packageStartupMessage")
 
     miss_pkgs <- paste0("USAID-OHA-SI/", miss_pkgs)
     miss_pkgs <- paste0(deparse(miss_pkgs), collapse = "\n")
 
-    cli::cli_inform(paste0(cli::cat_line('`install.packages(', miss_pkgs, ', repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))`')), class = "packageStartupMessage")
+    cli::cli_inform(paste0(cli::cat_line('`install.packages(', miss_pkgs, ', repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))`')),
+                    class = "packageStartupMessage")
   }
 }
 
