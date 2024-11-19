@@ -52,7 +52,7 @@ oha_attach <- function(){
     cli::cli_inform(glue::glue("{length(miss_pkgs)} core package{?s} not found, whose functions may be utilized in this script."),
                     class = "packageStartupMessage")
 
-    cli::cli_inform(glue::glue('To install {.pkg {miss_pkgs}}, start a clean session and run:'),
+    cli::cli_inform(glue::glue('To install {miss_pkgs}, start a clean session and run:'),
                     class = "packageStartupMessage")
 
     miss_pkgs <- paste0("USAID-OHA-SI/", miss_pkgs)

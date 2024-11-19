@@ -170,9 +170,9 @@ print_update_text <- function(name, org){
 
   if(name %in% oha_packages()){
     new_url <- paste0("https://usaid-oha-si.github.io/", name, "/news/index.html")
-    rlang::inform("See the changelog for more {.url {new_url}}", class = "packageStartupMessage")
+    rlang::inform(glue::glue("See the changelog for more {new_url}"), class = "packageStartupMessage")
   }
 
-  rlang::inform('To update {.pkg {name}}, start a clean session and run:', class = "packageStartupMessage")
-  rlang::inform('{.code install.packages("{name}", repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))}', class = "packageStartupMessage")
+  rlang::inform(glue::glue('To update {name}, start a clean session and run:'), class = "packageStartupMessage")
+  rlang::inform(glue::glue('install.packages("{name}", repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))'), class = "packageStartupMessage")
 }
