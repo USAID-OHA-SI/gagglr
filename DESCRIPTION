@@ -25,7 +25,9 @@ Imports:
     rstudioapi,
     sessioninfo,
     tibble,
-    utils
+    utils,
+    rlang,
+    glue
 Remotes:
   USAID-OHA-SI/glamr,
   USAID-OHA-SI/glitr,

@@ -5,21 +5,31 @@
 #' Load packages at start up
 #' @keywords internal
 oha_attach <- function(){
+
+  #1: load core packages
   to_load <- core_unloaded()
+
   if (length(to_load) == 0)
     return(invisible())
 
-  message(
+  suppressPackageStartupMessages(
+    lapply(to_load, load_pkg)
+  )
+
+  #invisible(to_load)
+
+  #2: display messages + warnings
+  header <- paste0(
     cli::rule(
       left = crayon::bold("Attaching core OHA packages"),
       right = paste0("gagglr ", utils::packageVersion("gagglr"))
     ))
 
+  ## Get version of each of the core packages
   versions <- vapply(to_load, package_version, character(1))
 
-  update_needed <- suppressMessages(suppressWarnings(
-    vapply(to_load, oha_check, character(1))
-  ))
+  ## Check if package is up to date
+  update_needed <- vapply(to_load, oha_check, character(1))
 
   packages <- paste0(
     crayon::green(cli::symbol$tick), " ", crayon::blue(format(to_load)), " ",
@@ -34,23 +44,23 @@ oha_attach <- function(){
     packages <- c(packages, packages_missing)
   }
 
-
-  message(paste(packages, collapse = "\n"))
+  rlang::inform(paste0(header, "\n", paste(packages, collapse = "\n")), class = "packageStartupMessage")
 
   if(length(setdiff(core, to_load) > 0)) {
     miss_pkgs <- setdiff(core, to_load)
-    cli::cli_alert_warning("{length(miss_pkgs)} core package{?s} not found, whose functions may be utilized in this script.")
-    cli::cli_inform('To install {.pkg {miss_pkgs}}, start a clean session and run:')
+
+    cli::cli_inform(glue::glue("{length(miss_pkgs)} core package{?s} not found, whose functions may be utilized in this script."),
+                    class = "packageStartupMessage")
+
+    cli::cli_inform(glue::glue('To install {miss_pkgs}, start a clean session and run:'),
+                    class = "packageStartupMessage")
+
     miss_pkgs <- paste0("USAID-OHA-SI/", miss_pkgs)
     miss_pkgs <- paste0(deparse(miss_pkgs), collapse = "\n")
-    cli::cat_line('`install.packages(', miss_pkgs, ', repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))`')
+
+    cli::cli_inform(paste0(cli::cat_line('`install.packages(', miss_pkgs, ', repos = c("https://usaid-oha-si.r-universe.dev", "https://cloud.r-project.org"))`')),
+                    class = "packageStartupMessage")
   }
-
-  suppressPackageStartupMessages(
-    lapply(to_load, load_pkg)
-  )
-
-  invisible()
 }
 
 
