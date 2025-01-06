@@ -144,19 +144,24 @@ extract_local_sha <- function(name){
     local_sha <- sub(".*@", "", src)
     local_sha <- sub(")", "", local_sha)
   } else if (grepl("usaid-oha-si.r-universe.dev", src)){
-    version <- sessioninfo::package_info(name, dependencies = FALSE)$ondiskversion
-    url <- paste0('https://usaid-oha-si.r-universe.dev/packages/', name, "/", version)
-    local_sha <- json <- httr::GET(url) %>%
+    #version <- sessioninfo::package_info(name, dependencies = FALSE)$ondiskversion
+
+    url <- paste0('https://usaid-oha-si.r-universe.dev/api/packages/', name)
+
+    # NOTE - wrap this within a tryCatch()
+    json <- httr::GET(url) %>%
         httr::content("text") %>%
         jsonlite::fromJSON(flatten = T)
-      local_sha <- json$RemoteSha[1]
-      if(is.null(local_sha)) local_sha <- "OUTDATED"
+
+    local_sha <- json$RemoteSha[1]
+
+    if(is.null(local_sha)) local_sha <- "OUTDATED"
+
   } else {
     local_sha <- NULL
   }
 
   return(local_sha)
-
 }
 
 
