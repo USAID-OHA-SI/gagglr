@@ -1,3 +1,6 @@
+# gagglr 0.2.3
+* Updated `check_updates` to account for r-universe packages info query through API [2025-01-06]
+
 # gagglr 0.2
 * Allow users to run `check_updates` while offline, returning an unknown status, rather than an error that can keep the user from using a pacakge [2024-03-07]
 * Develop solution for checking rOpenSci version from on AIDNET via [2024-01-10]
